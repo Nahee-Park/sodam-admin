@@ -1,7 +1,7 @@
 import React from 'react';
 
-function Example() {
+function Navbar() {
   return <div>example component</div>;
 }
 
-export default Example;
+export default Navbar;

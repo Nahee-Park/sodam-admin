@@ -1,17 +1,20 @@
+import Dashboard from '@page/Dashboard';
+import ManageReview from '@page/ManageReview';
+import ShopDetail from '@page/ShopDetail';
+import ShopList from '@page/ShopList';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Main from '@page/Main';
-import Detail from '@page/Detail';
-import Post from '@page/Post';
+
 
 function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="detail/*" element={<Detail />}>
-          <Route path=":id" element={<Post />} />
-        </Route>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/shop" element={<ShopList />} />
+        <Route path="/shop/new" element={<ShopDetail />} />
+        <Route path="/shop/edit" element={<ShopDetail />} />
+        <Route path="/review" element={<ManageReview />} />
       </Routes>
     </BrowserRouter>
   );
