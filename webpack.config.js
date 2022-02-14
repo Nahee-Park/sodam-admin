@@ -18,7 +18,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['*', '.ts', '.tsx', '.js', '.jsx'],
     alias: {
       '@types': path.resolve(__dirname, 'src/types/index.ts'),
       '@components': path.resolve(__dirname, 'src/components'),
@@ -29,6 +29,13 @@ module.exports = {
       '@layouts': path.resolve(__dirname, 'src/layouts'),
       '@utils': path.resolve(__dirname, 'src/common/utils'),
       '@page': path.resolve(__dirname, 'src/page'),
+    },
+    fallback: {
+      util: require.resolve('util/'),
+      path: require.resolve('path-browserify'),
+      os: require.resolve('os-browserify/browser'),
+      fs: false,
+      module: false,
     },
   },
   module: {
@@ -46,11 +53,11 @@ module.exports = {
           },
         ],
       },
-      {
-        test: /\.(ts|tsx)$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
+      // {
+      //   test: /\.(ts|tsx)$/,
+      //   use: 'ts-loader',
+      //   exclude: /node_modules/,
+      // },
       {
         test: /\.svg$/,
         type: 'asset/inline',
