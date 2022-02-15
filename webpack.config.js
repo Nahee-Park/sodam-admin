@@ -29,6 +29,7 @@ module.exports = {
       '@models': path.resolve(__dirname, 'src/models'),
       '@layouts': path.resolve(__dirname, 'src/layouts'),
       '@utils': path.resolve(__dirname, 'src/common/utils'),
+      '@states': path.resolve(__dirname, 'src/common/states/index.ts'),
       '@page': path.resolve(__dirname, 'src/page'),
     },
     fallback: {
