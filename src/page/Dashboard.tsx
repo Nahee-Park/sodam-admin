@@ -2,10 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
-const Heading = styled.h1`
-  ${tw`font-bold text-4xl text-blue-100`}
-`;
-
 function Dashboard() {
   return (
     <Heading>
@@ -15,3 +11,7 @@ function Dashboard() {
 }
 
 export default Dashboard;
+
+const Heading = styled.h1`
+  ${tw`font-bold text-4xl text-blue-100`}
+`;

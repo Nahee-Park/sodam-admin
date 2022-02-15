@@ -23,6 +23,7 @@
     "isolatedModules": true,
     "typeRoots": ["node_modules/@types"],
     "paths": {
+      "@assets": ["src/assets/*"],
       "@types": ["src/types/index.ts"],
       "@components/*": ["src/components/*"],
       "@constants/*": ["src/constants/*"],

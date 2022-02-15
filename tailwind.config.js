@@ -2,7 +2,11 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
   darkMode: false,
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'main-background': '#F7F8FB',
+      },
+    },
   },
   variants: {
     extend: {},
