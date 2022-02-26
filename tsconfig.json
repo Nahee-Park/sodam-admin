@@ -6,6 +6,7 @@
     "baseUrl": ".",
     "jsx": "react",
     "noImplicitAny": true,
+    "noImplicitThis": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "strictNullChecks": true,
@@ -33,7 +34,8 @@
       "@layouts/*": ["src/layouts/*"],
       "@utils/*": ["src/common/utils/*"],
       "@states": ["src/common/states/index.ts"],
-      "@page/*": ["src/page/*"]
+      "@page/*": ["src/page/*"],
+      "@mui/styled-engine": ["./node_modules/@mui/styled-engine-sc"]
     }
   },
   "include": ["src"],
