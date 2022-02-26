@@ -13,7 +13,7 @@
 1. react + webpack + typescript
 2. react-query
 3. recoil
-4. tailwind css + styled-component
+4. tailwind css + styled-component + material-ul
 5. yarn - package manager
 
 ## Backend
