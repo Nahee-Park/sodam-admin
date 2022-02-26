@@ -1,5 +1,8 @@
 # sodam-admin page
 
+![image](https://user-images.githubusercontent.com/81923229/155842620-6f56fbb0-ad9e-41fd-9831-64e1cd1bec80.png)
+
+
 ## 🎁 소품샵 여정의 이야기를 담다, Sodam-Admin 🎁
 
 1. dashboard : 등록된 소품샵 데이터 다양한 기준으로 한눈에 보여줌
