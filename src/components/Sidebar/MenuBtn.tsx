@@ -4,13 +4,13 @@ import tw from 'twin.macro';
 import { SIDE_BAR_MENU, SIDE_BAR_ICON } from '@constants/sidebarMenu';
 
 interface MenuBtnStyledProps {
-  isClicked: boolean | undefined;
-  isSidebar: boolean | undefined;
+  isClicked?: boolean | undefined;
+  isSidebar?: boolean | undefined;
 }
 interface mySongItemProps extends MenuBtnStyledProps {
   menuKey: string;
-  id: string;
-  onClick: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
+  id?: string;
+  onClick?: (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => void;
 }
 
 const MenuBtn = ({
