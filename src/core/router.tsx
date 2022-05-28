@@ -1,4 +1,5 @@
 import Dashboard from '@page/Dashboard';
+import Login from '@page/Login';
 import ManageReview from '@page/ManageReview';
 import ShopDetail from '@page/ShopDetail';
 import ShopList from '@page/ShopList';
@@ -8,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 function Router() {
   return (
     <Routes>
+      <Route path="/login" element={<Login />} />
       <Route path="/" element={<Dashboard />} />
       <Route path="/shop" element={<ShopList />} />
       <Route path="/shop/new" element={<ShopDetail />} />

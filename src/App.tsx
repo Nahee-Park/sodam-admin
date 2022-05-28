@@ -7,10 +7,7 @@ import tw from 'twin.macro';
 function App() {
   return (
     <AppContainer>
-      <Sidebar />
-      <Main>
-        <Router />
-      </Main>
+      <Router />
     </AppContainer>
   );
 }
