@@ -34,6 +34,7 @@ const SidebarList = () => {
       {sidebarMenuList.map((menuKey) => {
         return (
           <MenuBtn
+            key={menuKey}
             menuKey={menuKey}
             id={menuKey}
             onClick={onClickHandler}

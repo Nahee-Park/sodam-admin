@@ -1,6 +1,7 @@
 import Dashboard from '@page/Dashboard';
 import Login from '@page/Login';
 import ManageReview from '@page/ManageReview';
+import NotFound from '@page/NotFound';
 import ShopDetail from '@page/ShopDetail';
 import ShopList from '@page/ShopList';
 import React from 'react';
@@ -15,6 +16,7 @@ function Router() {
       <Route path="/shop/new" element={<ShopDetail />} />
       <Route path="/shop/edit" element={<ShopDetail />} />
       <Route path="/review" element={<ManageReview />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 }

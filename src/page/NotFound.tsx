@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 import { useSidebar } from '@states';
 
-function Login() {
+function NotFound() {
   const setUseSidebar = useSetRecoilState(useSidebar);
   useEffect(() => {
     setUseSidebar(false);
   }, []);
-  return <div>Login</div>;
+  return <div>NotFound</div>;
 }
 
-export default Login;
+export default NotFound;
