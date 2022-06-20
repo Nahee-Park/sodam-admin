@@ -10,6 +10,7 @@ const sidebarMenuList = ['DASHBOARD', 'ALL_SHOP', 'ADD_SHOP', 'MANAGE_REVIEW'];
 
 const SidebarList = () => {
   const [currentMenuState, setCurrentMenuState] = useRecoilState<string>(currentMenu);
+  // TODO
   const navigate = useNavigate();
   const onClickHandler = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
     const menuId = e.currentTarget.id;

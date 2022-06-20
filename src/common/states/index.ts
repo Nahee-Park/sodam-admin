@@ -9,3 +9,12 @@ export const useSidebar = atom({
   key: 'useSidebar',
   default: true,
 });
+
+export const allShopQuery = atom({
+  key: 'allShopQuery',
+  default: {
+    sort: 'alphabet',
+    page: 1,
+    limit: 400,
+  },
+});
