@@ -1,23 +1,36 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, createRef } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { useSidebar } from '@states';
+import { accessToken, useSidebar } from '@states';
 import styled from 'styled-components';
 import Button from '@components/common/Button';
 import Input from '@components/common/Input';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
+import axios from 'axios';
 
 function Login() {
   const setUseSidebar = useSetRecoilState(useSidebar);
-  const loginInput = useRef();
-  const passwordInput = useRef();
+  const loginInput = createRef<HTMLInputElement>();
+  const passwordInput = createRef<HTMLInputElement>();
+  const navigate = useNavigate();
+  const [accesstoken, setAccesstoken] = useRecoilState<string>(accessToken);
 
   useEffect(() => {
     setUseSidebar(false);
   }, []);
 
+  const postLogin = async () => {};
+
+  const handleSubmit = () => {
+    navigate('/');
+    console.log(loginInput.current?.value);
+    console.log(passwordInput.current?.value);
+  };
+
   return (
     <Styled.Root>
       <Styled.Title>Login</Styled.Title>
-      <Styled.Form>
+      <Styled.Form onSubmit={handleSubmit}>
         <Input placeholder="id" ref={loginInput} type="text" />
         <Input placeholder="password" ref={passwordInput} type="password" />
         <Button width="109%" height="35px">
@@ -42,21 +55,22 @@ const Styled = {
   `,
   Title: styled.h1`
     color: #abacfe;
-    margin-bottom: 8px;
+    margin-bottom: 16px;
   `,
   Form: styled.form`
-    width: 30%;
+    width: 300px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     input {
-      & {
+      &:first-child {
         margin-bottom: 8px;
       }
     }
     button {
       & {
+        margin-top: 16px;
         padding: 8px 10px;
       }
     }
