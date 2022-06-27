@@ -31,19 +31,27 @@ interface ShopAnalyzeDataResponse extends CommonResponse {
 }
 
 export class ShopDataApi extends AbstractApi {
-  public static async getAllShop({
-    sort,
-    page,
-    limit,
-  }: getAllShopProps): Promise<AllShopListResponse> {
+  public static async getAllShop({ sort, page, limit }: getAllShopProps) {
+    const accesstoken = window.localStorage.getItem('accesstoken') as string;
+    console.log('>>accesstoken', accesstoken);
     const URL = ADMIN_URL + this.buildPath('all') + this.buildQuery({ sort, page, limit });
-    const response = await axios.get<AllShopListResponse>(URL);
+    const response = await axios.get<AllShopListResponse>(URL, {
+      headers: {
+        accesstoken,
+      },
+    });
+    console.log('>>djEjs doemfdl emfddhktsl>>', response);
     return response.data;
   }
 
   public static async getShopAnalyzeData(): Promise<ShopAnalyzeDataResponse> {
+    const accesstoken = window.localStorage.getItem('accesstoken') as string;
     const URL = ADMIN_URL + this.buildPath('data');
-    const response = await axios.get<ShopAnalyzeDataResponse>(URL);
+    const response = await axios.get<ShopAnalyzeDataResponse>(URL, {
+      headers: {
+        accesstoken,
+      },
+    });
     return response.data;
   }
 }

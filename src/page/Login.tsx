@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, createRef } from 'react';
 import { useSetRecoilState } from 'recoil';
-import { accessToken, useSidebar } from '@states';
+import { useSidebar, userInfo } from '@states';
 import styled from 'styled-components';
 import Button from '@components/common/Button';
 import Input from '@components/common/Input';
@@ -14,7 +14,7 @@ function Login() {
   const loginInput = createRef<HTMLInputElement>();
   const passwordInput = createRef<HTMLInputElement>();
   const navigate = useNavigate();
-  const [accesstoken, setAccesstoken] = useRecoilState<string>(accessToken);
+  const [userInformation, setUserInformation] = useRecoilState(userInfo);
 
   useEffect(() => {
     setUseSidebar(false);
@@ -27,7 +27,10 @@ function Login() {
     });
     console.log(response);
     if (response?.data?.accesstoken) {
-      setAccesstoken(response.data.accesstoken);
+      setUserInformation({
+        email: loginInput.current?.value as string,
+        password: passwordInput.current?.value as string,
+      });
       window.localStorage.setItem('accesstoken', response.data.accesstoken);
     }
     return response?.data?.accesstoken;

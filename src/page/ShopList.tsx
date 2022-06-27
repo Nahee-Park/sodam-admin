@@ -5,8 +5,10 @@ import ErrorBoundary from '@components/common/ErrorBoundary';
 import ErrorAlert from '@components/common/ErrorAlert';
 import styled from 'styled-components';
 import Dropdown from '@components/common/Dropdown';
+import useRefreshLogin from '@hooks/useRefreshLogin';
 
 function ShopList() {
+  useRefreshLogin();
   return (
     <>
       <DropdownWrapper>

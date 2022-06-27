@@ -3,9 +3,11 @@ import styled from 'styled-components';
 import tw from 'twin.macro';
 import { useSidebar } from '@states';
 import { useSetRecoilState } from 'recoil';
+import useRefreshLogin from '@hooks/useRefreshLogin';
 
 function Dashboard() {
   const setUseSidebar = useSetRecoilState(useSidebar);
+  useRefreshLogin();
   useEffect(() => {
     setUseSidebar(true);
   }, []);

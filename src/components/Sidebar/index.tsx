@@ -38,6 +38,7 @@ export default Sidebar;
 
 const SidebarContainer = styled.aside`
   ${tw`w-72 flex flex-col`}
+  position: fixed;
 `;
 const SidebarTitle = styled.img`
   ${tw`w-48 mx-10 my-6`}

@@ -19,7 +19,10 @@ export const allShopQuery = atom({
   },
 });
 
-export const accessToken = atom({
-  key: 'accessToken',
-  default: 'not authenticated',
+export const userInfo = atom({
+  key: 'userInfo',
+  default: {
+    email: '',
+    password: '',
+  },
 });
