@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'twin.macro';
@@ -7,6 +7,9 @@ import SidebarList from './SidebarList';
 import TotalData from './TotalData';
 import { useSetRecoilState } from 'recoil';
 import { currentMenu } from '@states';
+import ErrorAlert from '@components/common/ErrorAlert';
+import ErrorBoundary from '@components/common/ErrorBoundary';
+import Loading from '@components/common/Loading';
 function Sidebar() {
   const navigate = useNavigate();
   const setCurrentMenuState = useSetRecoilState<string>(currentMenu);
@@ -28,7 +31,11 @@ function Sidebar() {
         onClick={handleTitleClick}
       />
       <SidebarList />
-      <TotalData />
+      <Suspense fallback={<Loading />}>
+        <ErrorBoundary renderFallback={({ error }) => <ErrorAlert error={error} />}>
+          <TotalData />
+        </ErrorBoundary>
+      </Suspense>
       <MenuBtn menuKey="LOGOUT" onClick={handleLogoutClick} />
     </SidebarContainer>
   );

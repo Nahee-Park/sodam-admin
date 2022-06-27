@@ -1,14 +1,16 @@
+import useShopAnalyzeData from '@hooks/useShopAnalyzeData';
 import React from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 
 const TotalData = () => {
+  const { data } = useShopAnalyzeData();
   return (
     <TotalDataWrapper>
       <DataTitle>Total Data</DataTitle>
       <DataContentsBox>
-        <DataContents>shop total: 443</DataContents>
-        <DataContents>review total: 13</DataContents>
+        <DataContents>shop total: {data?.allShopCount[0]?.count}</DataContents>
+        <DataContents>review total: {data?.allReviewCount[0]?.count}</DataContents>
       </DataContentsBox>
     </TotalDataWrapper>
   );
