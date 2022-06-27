@@ -26,7 +26,10 @@ function Login() {
       password: passwordInput.current?.value as string,
     });
     console.log(response);
-    response?.data?.accesstoken && setAccesstoken(response.data.accesstoken);
+    if (response?.data?.accesstoken) {
+      setAccesstoken(response.data.accesstoken);
+      window.localStorage.setItem('accesstoken', response.data.accesstoken);
+    }
     return response?.data?.accesstoken;
   };
 

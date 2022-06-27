@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import MenuBtn from './MenuBtn';
@@ -6,12 +7,17 @@ import SidebarList from './SidebarList';
 import TotalData from './TotalData';
 
 function Sidebar() {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    window.localStorage.removeItem('accessToken');
+    navigate('/login');
+  };
   return (
     <SidebarContainer>
       <SidebarTitle src={require('@assets/sodamMenuTitle.svg')} />
       <SidebarList />
       <TotalData />
-      <MenuBtn menuKey="LOGOUT" />
+      <MenuBtn menuKey="LOGOUT" onClick={handleClick} />
     </SidebarContainer>
   );
 }

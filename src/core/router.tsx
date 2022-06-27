@@ -10,8 +10,7 @@ import { useRecoilValue } from 'recoil';
 import { accessToken } from '@states';
 
 function Router() {
-  const accesstoken = useRecoilValue(accessToken);
-  console.log('>>accesstoken나 라우터', accesstoken);
+  const accesstoken = window.localStorage.getItem('accesstoken');
   switch (accesstoken) {
     case 'not authenticated':
       return (
