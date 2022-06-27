@@ -33,14 +33,12 @@ interface ShopAnalyzeDataResponse extends CommonResponse {
 export class ShopDataApi extends AbstractApi {
   public static async getAllShop({ sort, page, limit }: getAllShopProps) {
     const accesstoken = window.localStorage.getItem('accesstoken') as string;
-    console.log('>>accesstoken', accesstoken);
     const URL = ADMIN_URL + this.buildPath('all') + this.buildQuery({ sort, page, limit });
     const response = await axios.get<AllShopListResponse>(URL, {
       headers: {
         accesstoken,
       },
     });
-    console.log('>>djEjs doemfdl emfddhktsl>>', response);
     return response.data;
   }
 
@@ -52,6 +50,7 @@ export class ShopDataApi extends AbstractApi {
         accesstoken,
       },
     });
+    console.log('>>data', response?.data);
     return response.data;
   }
 }

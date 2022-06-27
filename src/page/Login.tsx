@@ -72,6 +72,7 @@ const Styled = {
     justify-content: center;
     background-color: #f7f6fc;
     position: fixed;
+    bottom: 70px;
   `,
   Title: styled.h1`
     color: #abacfe;

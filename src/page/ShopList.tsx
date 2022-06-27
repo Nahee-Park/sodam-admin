@@ -6,6 +6,7 @@ import ErrorAlert from '@components/common/ErrorAlert';
 import styled from 'styled-components';
 import Dropdown from '@components/common/Dropdown';
 import useRefreshLogin from '@hooks/useRefreshLogin';
+import CustomPagination from '@components/common/Pagination';
 
 function ShopList() {
   useRefreshLogin();
@@ -19,6 +20,7 @@ function ShopList() {
           <AllShopGrid />
         </ErrorBoundary>
       </Suspense>
+      <CustomPagination />
     </>
   );
 }

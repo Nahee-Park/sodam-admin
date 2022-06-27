@@ -1,20 +1,30 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import styled from 'styled-components';
 import tw from 'twin.macro';
 import { useSidebar } from '@states';
 import { useSetRecoilState } from 'recoil';
 import useRefreshLogin from '@hooks/useRefreshLogin';
+import useShopAnalyzeData from '@hooks/useShopAnalyzeData';
+import DashboardSection from '@components/DashboardSection';
+import ErrorAlert from '@components/common/ErrorAlert';
+import ErrorBoundary from '@components/common/ErrorBoundary';
+import Loading from '@components/common/Loading';
 
 function Dashboard() {
   const setUseSidebar = useSetRecoilState(useSidebar);
-  useRefreshLogin();
+  // useRefreshLogin();
+  // useShopAnalyzeData();
   useEffect(() => {
     setUseSidebar(true);
   }, []);
   return (
     <>
       <Heading>
-        <div className="bg-gray-800">Dashboard</div>
+        <Suspense fallback={<Loading />}>
+          <ErrorBoundary renderFallback={({ error }) => <ErrorAlert error={error} />}>
+            <DashboardSection />
+          </ErrorBoundary>
+        </Suspense>
       </Heading>
     </>
   );

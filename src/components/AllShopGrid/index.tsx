@@ -4,6 +4,7 @@ import useAllShop from '@hooks/useAllShop';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
 import { allShopQuery } from '@states';
+import CustomPagination from '@components/common/Pagination';
 
 function AllShopGrid() {
   const { sort, page, limit } = useRecoilValue(allShopQuery);
@@ -42,6 +43,7 @@ const ShopGrid = styled.section`
   width: 100%;
   /* display: grid; */
   justify-content: center;
+  margin-top: 2rem;
   /* grid-template-columns: repeat(auto-fill, 200px); */
   height: fit-content;
   /* column-gap: 25px; */
