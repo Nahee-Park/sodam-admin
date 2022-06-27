@@ -71,6 +71,7 @@ const Styled = {
     align-items: center;
     justify-content: center;
     background-color: #f7f6fc;
+    position: fixed;
   `,
   Title: styled.h1`
     color: #abacfe;

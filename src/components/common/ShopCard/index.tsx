@@ -14,7 +14,7 @@ interface ShopCardProps {
 function ShopCard({ shopName, image, category }: ShopCardProps) {
   return (
     <CardActionArea>
-      <Card sx={{ width: 200, height: 260, 'box-shadow': '1px 1px 10px #D3D3D3' }}>
+      <Card sx={{ width: 250, height: 260, 'box-shadow': '1px 1px 10px #D3D3D3' }}>
         <CardMedia component="img" height="140" image={image} alt="shop data" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">

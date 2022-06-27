@@ -14,7 +14,12 @@ function App() {
   const isSidebar = useRecoilValue<boolean>(useSidebar);
   return (
     <Styled.Root>
-      {isSidebar && <Sidebar />}
+      {isSidebar && (
+        <>
+          <Sidebar />
+          <Styled.Sidebar />
+        </>
+      )}
       <Styled.Main isSidebar={isSidebar}>
         <Router />
       </Styled.Main>
@@ -26,11 +31,22 @@ export default App;
 
 const Styled = {
   Root: styled.div`
-    ${tw`flex h-full w-full h-screen`}
+    min-height: 100vh;
+    ${tw`flex h-full w-full`}
   `,
   Main: styled.main<mainStyleProps>`
-    ${tw`flex h-full w-full bg-[#F7F8FB] px-24`}
+    ${tw`flex h-full w-full bg-[#F7F8FB] `}
     flex-direction: column;
-    margin-left: ${({ isSidebar }) => (isSidebar ? '18rem' : '0rem')};
+    min-height: 100vh;
+    /* margin-left: ${({ isSidebar }) => (isSidebar ? '18rem' : '0rem')}; */
+    padding: 8px 8px;
+    align-items: center;
+    /* min-height: 100vh; */
+    /* min-height: 100%;
+    height: fit-content; */
+  `,
+
+  Sidebar: styled.div`
+    width: 21.85rem;
   `,
 };

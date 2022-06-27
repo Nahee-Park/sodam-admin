@@ -15,7 +15,7 @@ export const allShopQuery = atom({
   default: {
     sort: 'alphabet',
     page: 1,
-    limit: 400,
+    limit: 20,
   },
 });
 

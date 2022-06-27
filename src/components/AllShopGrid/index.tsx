@@ -14,28 +14,31 @@ function AllShopGrid() {
   }, []);
   return (
     <ShopGrid>
-      {allShopData?.data &&
-        allShopData?.data?.map((item) => {
-          return (
-            <ShopCard
-              shopName={item?.shopName}
-              image={item?.image && item?.image.length !== 0 ? item?.image[0] : '이미지 없음'}
-              category={
-                item?.category && item?.category.length !== 0
-                  ? item?.category[0]
-                  : '카테고리 지정 안됨'
-              }
-              // category={item?.category[0].toString()}
-            />
-          );
-        })}
+      {allShopData?.data?.map((item) => {
+        return (
+          <ShopCard
+            shopName={item?.shopName}
+            image={
+              item?.image && item?.image.length !== 0
+                ? item?.image[0]
+                : 'https://sodam-bucket-2.s3.ap-northeast-2.amazonaws.com/review/no_image.png'
+            }
+            category={
+              item?.category && item?.category.length !== 0
+                ? item?.category[0]
+                : '카테고리 지정 안됨'
+            }
+            // category={item?.category[0].toString()}
+          />
+        );
+      })}
     </ShopGrid>
   );
 }
 
 export default AllShopGrid;
 
-const ShopGrid = styled.div`
+const ShopGrid = styled.section`
   width: 100%;
   /* display: grid; */
   justify-content: center;
@@ -44,6 +47,11 @@ const ShopGrid = styled.div`
   /* column-gap: 25px; */
   /* row-gap: 70px; */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 3px 3px;
+  grid-template-columns: repeat(5, 1fr);
+  max-width: 1280px;
+  min-width: 1280px;
+  gap: 8px 8px;
+  & button {
+    width: fit-content;
+  }
 `;
