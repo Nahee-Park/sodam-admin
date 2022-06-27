@@ -47,6 +47,6 @@ const Styled = {
   `,
 
   Sidebar: styled.div`
-    width: 21.85rem;
+    min-width: 18rem;
   `,
 };

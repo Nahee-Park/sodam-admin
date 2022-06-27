@@ -19,13 +19,12 @@ function Dashboard() {
   }, []);
   return (
     <>
-      <Heading>
-        <Suspense fallback={<Loading />}>
-          <ErrorBoundary renderFallback={({ error }) => <ErrorAlert error={error} />}>
-            <DashboardSection />
-          </ErrorBoundary>
-        </Suspense>
-      </Heading>
+      <Heading>DASH BOARD</Heading>
+      <Suspense fallback={<Loading />}>
+        <ErrorBoundary renderFallback={({ error }) => <ErrorAlert error={error} />}>
+          <DashboardSection />
+        </ErrorBoundary>
+      </Suspense>
     </>
   );
 }

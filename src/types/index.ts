@@ -3,3 +3,13 @@ export interface getAllShopProps {
   page: number;
   limit: number;
 }
+
+export type themeType = '빈티지' | '아기자기한' | '힙한' | '모던한';
+
+export type categoryType =
+  | '공예품'
+  | '문구팬시'
+  | '주방용품'
+  | '인형장난감'
+  | '인테리어소품'
+  | '패션소품';

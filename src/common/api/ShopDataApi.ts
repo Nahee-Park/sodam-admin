@@ -15,7 +15,7 @@ interface AllShopListResponse extends CommonResponse {
   ];
 }
 
-interface AnalyzeDataObj {
+export interface AnalyzeDataObj {
   name: string;
   count: number;
 }
