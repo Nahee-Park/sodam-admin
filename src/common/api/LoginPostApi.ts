@@ -14,7 +14,7 @@ interface LoginProps {
   password: string;
 }
 export class LoginApi extends AbstractApi {
-  public static async postLogin({ email, password }: LoginProps): Promise<LoginResponse> {
+  public static async postLogin({ email, password }: LoginProps) {
     try {
       const URL = ADMIN_URL + this.buildPath('login');
       const response = await axios.post<LoginResponse>(URL, {

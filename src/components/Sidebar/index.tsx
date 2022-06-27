@@ -5,19 +5,31 @@ import tw from 'twin.macro';
 import MenuBtn from './MenuBtn';
 import SidebarList from './SidebarList';
 import TotalData from './TotalData';
-
+import { useSetRecoilState } from 'recoil';
+import { currentMenu } from '@states';
 function Sidebar() {
   const navigate = useNavigate();
-  const handleClick = () => {
+  const setCurrentMenuState = useSetRecoilState<string>(currentMenu);
+  const handleLogoutClick = () => {
     window.localStorage.removeItem('accessToken');
     navigate('/login');
   };
+  const handleTitleClick = () => {
+    navigate('/');
+    setCurrentMenuState('DASHBOARD');
+  };
   return (
     <SidebarContainer>
-      <SidebarTitle src={require('@assets/sodamMenuTitle.svg')} />
+      <SidebarTitle
+        src={require('@assets/sodamMenuTitle.svg')}
+        tabIndex={0}
+        role="button"
+        aria-pressed="false"
+        onClick={handleTitleClick}
+      />
       <SidebarList />
       <TotalData />
-      <MenuBtn menuKey="LOGOUT" onClick={handleClick} />
+      <MenuBtn menuKey="LOGOUT" onClick={handleLogoutClick} />
     </SidebarContainer>
   );
 }
@@ -29,4 +41,5 @@ const SidebarContainer = styled.aside`
 `;
 const SidebarTitle = styled.img`
   ${tw`w-48 mx-10 my-6`}
+  cursor: pointer;
 `;
