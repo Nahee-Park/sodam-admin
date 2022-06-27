@@ -7,6 +7,7 @@ import Input from '@components/common/Input';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import axios from 'axios';
+import { LoginApi } from '@api/LoginPostApi';
 
 function Login() {
   const setUseSidebar = useSetRecoilState(useSidebar);
@@ -19,12 +20,24 @@ function Login() {
     setUseSidebar(false);
   }, []);
 
-  const postLogin = async () => {};
+  const postLogin = async () => {
+    const response = await LoginApi.postLogin({
+      email: loginInput.current?.value as string,
+      password: passwordInput.current?.value as string,
+    });
+    console.log(response);
+    response?.data?.accesstoken && setAccesstoken(response.data.accesstoken);
+    return response?.data?.accesstoken;
+  };
 
-  const handleSubmit = () => {
-    navigate('/');
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     console.log(loginInput.current?.value);
     console.log(passwordInput.current?.value);
+    const data = await postLogin();
+    if (data) {
+      navigate('/');
+    }
   };
 
   return (

@@ -15,8 +15,16 @@ interface LoginProps {
 }
 export class LoginApi extends AbstractApi {
   public static async postLogin({ email, password }: LoginProps): Promise<LoginResponse> {
-    const URL = ADMIN_URL + this.buildPath('login');
-    const response = await axios.get<LoginResponse>(URL);
-    return response.data;
+    try {
+      const URL = ADMIN_URL + this.buildPath('login');
+      const response = await axios.post<LoginResponse>(URL, {
+        email,
+        password,
+      });
+      return response.data;
+    } catch (e) {
+      console.log(e);
+      alert('이메일과 패스워드를 확인해주세요');
+    }
   }
 }
