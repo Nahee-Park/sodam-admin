@@ -28,11 +28,14 @@ function ShopList() {
 export default ShopList;
 
 const DropdownWrapper = styled.div`
-  width: 100%;
+  /* width: 100%;
   display: grid;
   justify-content: space-around;
   grid-template-columns: repeat(1fr, 200px);
   height: fit-content;
   column-gap: 25px;
-  row-gap: 70px;
+  row-gap: 70px; */
+  width: 95%;
+  display: flex;
+  justify-content: flex-end;
 `;

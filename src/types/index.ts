@@ -1,5 +1,5 @@
 export interface getAllShopProps {
-  sort: string;
+  sort: sortType;
   page: number;
   limit: number;
 }
@@ -13,3 +13,5 @@ export type categoryType =
   | '인형장난감'
   | '인테리어소품'
   | '패션소품';
+
+export type sortType = 'recent' | 'alphabet';

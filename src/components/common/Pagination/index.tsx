@@ -20,10 +20,6 @@ function CustomPagination() {
       setPageCount(Math.ceil(allAnalyzData?.data?.allShopCount[0]?.count / 20));
   }, [allAnalyzData?.data?.allShopCount]);
 
-  useEffect(() => {
-    console.log(shopQuery);
-  }, [shopQuery]);
-
   return (
     <Styled.Root>
       <Pagination count={pageCount} page={page} onChange={handleChange} />

@@ -3,6 +3,10 @@ import SelectUnstyled, { selectUnstyledClasses } from '@mui/base/SelectUnstyled'
 import OptionUnstyled, { optionUnstyledClasses } from '@mui/base/OptionUnstyled';
 import PopperUnstyled from '@mui/base/PopperUnstyled';
 import { styled } from '@mui/system';
+import { SelectChangeEvent } from '@mui/material/Select/Select';
+import { useRecoilState } from 'recoil';
+import { allShopQuery } from '@states';
+import { sortType } from '@types';
 /*
 [{value, text}, {value, text}] 이런 쌍의 
 
@@ -11,11 +15,15 @@ import { styled } from '@mui/system';
 interface DropdownProps {}
 
 export default function Dropdown() {
+  const [sortQuery, setSortQuery] = useRecoilState(allShopQuery);
+  const [value, setValue] = React.useState<sortType>('alphabet');
+  React.useEffect(() => {
+    setSortQuery({ ...sortQuery, sort: value });
+  }, [value]);
   return (
-    <CustomSelect defaultValue={10}>
-      <StyledOption value={10}>Ten</StyledOption>
-      <StyledOption value={20}>Twenty</StyledOption>
-      <StyledOption value={30}>Thirty</StyledOption>
+    <CustomSelect defaultValue="alphabet" onChange={setValue}>
+      <StyledOption value="alphabet">가나다순</StyledOption>
+      <StyledOption value="recent">최신순</StyledOption>
     </CustomSelect>
   );
 }
@@ -142,7 +150,7 @@ const CustomSelect = React.forwardRef(function CustomSelect(props, ref) {
     Root: StyledButton,
     Listbox: StyledListbox,
     Popper: StyledPopper,
-    ...props.components,
+    ...props,
   };
 
   return <SelectUnstyled {...props} ref={ref} components={components} />;

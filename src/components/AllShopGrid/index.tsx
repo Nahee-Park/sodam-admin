@@ -41,7 +41,7 @@ const ShopGrid = styled.section`
   width: 95%;
   /* display: grid; */
   justify-content: center;
-  margin-top: 2rem;
+  margin-top: 1rem;
   /* grid-template-columns: repeat(auto-fill, 200px); */
   height: fit-content;
   /* column-gap: 25px; */
