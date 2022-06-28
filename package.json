@@ -1,6 +1,6 @@
 {
-  "name": "react-typescript-webpack",
-  "description": "my react+ts boilerplate",
+  "name": "sodam-admin",
+  "description": "sodam-admin",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Nahee-Park",
