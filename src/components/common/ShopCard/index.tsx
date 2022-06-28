@@ -14,7 +14,14 @@ interface ShopCardProps {
 function ShopCard({ shopName, image, category }: ShopCardProps) {
   return (
     <CardActionArea>
-      <Card sx={{ width: '100%', height: 260, 'box-shadow': '1px 1px 10px #D3D3D3' }}>
+      <Card
+        sx={{
+          width: '100%',
+          height: 260,
+          'box-shadow': '1px 1px 10px #D3D3D3',
+          'border-radius': '16px',
+        }}
+      >
         <CardMedia component="img" height="140" image={image} alt="shop data" />
         <CardContent>
           <Typography gutterBottom variant="body1" component="div">

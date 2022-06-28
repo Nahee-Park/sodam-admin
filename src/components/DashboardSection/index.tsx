@@ -192,6 +192,14 @@ function DashboardSection() {
   ];
   return (
     <Styled.Root>
+      {/* <Styled.TotalInfo>
+        <Styled.TotalInfoTitle>
+          전체 소품샵의 수 : {allAnalyzData?.data?.allShopCount[0]?.count}
+        </Styled.TotalInfoTitle>
+        <Styled.TotalInfoTitle>
+          전체 리뷰 수 : {allAnalyzData?.data?.allReviewCount[0]?.count}
+        </Styled.TotalInfoTitle>
+      </Styled.TotalInfo> */}
       <Styled.ChartWrapper>
         <Styled.ThemePieChart>
           <Styled.Title>테마별 소품샵</Styled.Title>
@@ -220,6 +228,27 @@ const Styled = {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  `,
+  TotalInfo: styled.section`
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    align-items: flex-start;
+  `,
+  TotalInfoTitle: styled.section`
+    font-size: 1rem;
+  `,
+  InfoBox: styled.article`
+    height: 100px;
+    width: 49%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: #ffffff;
+    border-radius: 16px;
+    min-width: 405px;
+    border: 1px solid #e9e8eb;
   `,
   Title: styled.h2`
     color: #525050;

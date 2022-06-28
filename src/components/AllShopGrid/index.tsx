@@ -25,9 +25,7 @@ function AllShopGrid() {
                 : 'https://sodam-bucket-2.s3.ap-northeast-2.amazonaws.com/review/no_image.png'
             }
             category={
-              item?.category && item?.category.length !== 0
-                ? item?.category[0]
-                : '카테고리 지정 안됨'
+              item?.category.length !== 0 ? item?.category.toString() : '카테고리 지정 안됨'
             }
             // category={item?.category[0].toString()}
           />

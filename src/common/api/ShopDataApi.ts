@@ -39,6 +39,7 @@ export class ShopDataApi extends AbstractApi {
         accesstoken,
       },
     });
+    console.log('>>새로 방아온 겂', response.data);
     return response.data;
   }
 

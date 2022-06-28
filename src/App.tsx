@@ -48,5 +48,6 @@ const Styled = {
 
   Sidebar: styled.div`
     min-width: 18rem;
+    z-index: 2;
   `,
 };

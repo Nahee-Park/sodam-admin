@@ -10,11 +10,12 @@ import { useRecoilValue } from 'recoil';
 
 function Router() {
   const accesstoken = window.localStorage.getItem('accesstoken');
+  console.log('>>accesstoken', accesstoken);
   switch (accesstoken) {
-    case 'not authenticated':
+    case null:
       return (
         <Routes>
-          <Route path="/*" element={<Login />} />
+          <Route path="*" element={<Login />} />
         </Routes>
       );
     default:
