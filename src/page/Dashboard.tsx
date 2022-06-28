@@ -19,7 +19,9 @@ function Dashboard() {
   }, []);
   return (
     <>
-      <Heading>DASH BOARD</Heading>
+      <Styled.HeadingWrapper>
+        <Heading>DASH BOARD</Heading>
+      </Styled.HeadingWrapper>
       <Suspense fallback={<Loading />}>
         <ErrorBoundary renderFallback={({ error }) => <ErrorAlert error={error} />}>
           <DashboardSection />
@@ -35,4 +37,10 @@ const Heading = styled.h1`
   ${tw`font-bold text-4xl text-[#ABACFE]`}
 `;
 
-const Styled = {};
+const Styled = {
+  HeadingWrapper: styled.div`
+    width: 90%;
+    display: flex;
+    justify-content: flex-start;
+  `,
+};

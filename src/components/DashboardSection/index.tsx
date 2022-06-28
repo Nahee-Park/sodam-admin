@@ -306,7 +306,6 @@ const Styled = {
     align-items: center;
     background: #ffffff;
     border-radius: 16px;
-    min-width: 605px;
     border: 1px solid #e9e8eb;
     min-width: 1010px;
     & > div {

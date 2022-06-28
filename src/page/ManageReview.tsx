@@ -1,9 +1,10 @@
+import CheckTable from '@components/common/CheckTable';
 import useRefreshLogin from '@hooks/useRefreshLogin';
 import React from 'react';
 
 function ManageReview() {
   useRefreshLogin();
-  return <div>ManageReview</div>;
+  return <CheckTable />;
 }
 
 export default ManageReview;
