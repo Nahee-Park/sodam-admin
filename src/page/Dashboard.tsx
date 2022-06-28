@@ -32,7 +32,7 @@ function Dashboard() {
 export default Dashboard;
 
 const Heading = styled.h1`
-  ${tw`font-bold text-4xl text-blue-100`}
+  ${tw`font-bold text-4xl text-[#ABACFE]`}
 `;
 
 const Styled = {};

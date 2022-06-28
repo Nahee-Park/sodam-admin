@@ -7,7 +7,6 @@ import ShopList from '@page/ShopList';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import { accessToken } from '@states';
 
 function Router() {
   const accesstoken = window.localStorage.getItem('accesstoken');

@@ -40,7 +40,7 @@ function AllShopGrid() {
 export default AllShopGrid;
 
 const ShopGrid = styled.section`
-  width: 100%;
+  width: 95%;
   /* display: grid; */
   justify-content: center;
   margin-top: 2rem;
@@ -50,10 +50,11 @@ const ShopGrid = styled.section`
   /* row-gap: 70px; */
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  max-width: 1280px;
-  min-width: 1280px;
-  gap: 8px 8px;
+  /* grid-template-columns: minmax(230px, min-content) repeat(auto-fill, 250px); */
+  /* max-width: 1280px; */
+  /* min-width: 1140px; */
+  gap: 16px 16px;
   & button {
-    width: fit-content;
+    width: 100%;
   }
 `;

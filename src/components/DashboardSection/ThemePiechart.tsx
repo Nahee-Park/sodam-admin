@@ -9,7 +9,6 @@ interface PiechartFormat {
   color: string;
 }
 const ThemePiechart = ({ data }: { data: PiechartFormat[] }) => {
-  console.log('>>>>>>>>>>>차트데이터', data);
   return (
     <>
       <ResponsivePie

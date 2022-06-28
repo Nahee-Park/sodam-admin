@@ -1,10 +1,10 @@
 import { ResponsivePie } from '@nivo/pie';
-import { themeType } from '@types';
+import { categoryType } from '@types';
 import React from 'react';
 
 interface PiechartFormat {
-  id: themeType;
-  label: themeType;
+  id: categoryType;
+  label: categoryType;
   value?: number;
   color: string;
 }
