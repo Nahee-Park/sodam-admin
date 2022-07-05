@@ -19,7 +19,7 @@ const TotalData = () => {
 export default TotalData;
 
 const TotalDataWrapper = styled.section`
-  ${tw`w-min ml-6 mt-[165%]`}
+  ${tw`w-min ml-6 mt-[150%]`}
 `;
 const DataTitle = styled.h1`
   ${tw`m-0 text-[#ABACFE] text-2xl relative top-4 left-3`}
