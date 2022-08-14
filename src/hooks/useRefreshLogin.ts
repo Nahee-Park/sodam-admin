@@ -8,22 +8,27 @@ const useRefreshLogin = () => {
   const [userInformation, setUserInformation] = useRecoilState(userInfo);
   const navigate = useNavigate();
   const postLogin = async () => {
-    if (userInformation.email === '' || userInformation.password === '') {
+    try {
+      if (userInformation.email === '' || userInformation.password === '') {
+        navigate('/login');
+        return;
+      }
+      const response = await LoginApi.postLogin({
+        email: userInformation.email,
+        password: userInformation.password,
+      });
+      if (response?.data?.accesstoken) {
+        window.localStorage.setItem('accesstoken', response.data.accesstoken);
+      }
+      console.log('리프레시됨!', response?.data?.accesstoken);
+      return response?.data?.accesstoken;
+    } catch {
       navigate('/login');
-      return;
     }
-    const response = await LoginApi.postLogin({
-      email: userInformation.email,
-      password: userInformation.password,
-    });
-    if (response?.data?.accesstoken) {
-      window.localStorage.setItem('accesstoken', response.data.accesstoken);
-    }
-    return response?.data?.accesstoken;
   };
   useEffect(() => {
     postLogin();
-  }, []);
+  }, [userInformation]);
 };
 
 export default useRefreshLogin;

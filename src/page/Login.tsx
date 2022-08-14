@@ -36,7 +36,9 @@ function Login() {
     return response?.data?.accesstoken;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     e.preventDefault();
     console.log(loginInput.current?.value);
     console.log(passwordInput.current?.value);
@@ -53,7 +55,7 @@ function Login() {
       <Styled.Form onSubmit={handleSubmit}>
         <Input placeholder="id" ref={loginInput} type="text" width="100%" />
         <Input placeholder="password" ref={passwordInput} type="password" width="100%" />
-        <Button width="109%" height="35px">
+        <Button width="109%" height="35px" onClick={handleSubmit}>
           Login
         </Button>
       </Styled.Form>
