@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ interface ButtonStyleProps {
 }
 interface ButtonProps extends HTMLAttributes<HTMLButtonElement>, ButtonStyleProps {
   className?: string;
-  children: string;
+  children: string | ReactElement;
   [key: string]: any;
 }
 function Button({ children, width = '100px', height = '30px' }: ButtonProps) {
@@ -29,5 +29,6 @@ const Styled = {
     background-color: #abacfe;
     color: white;
     border: none;
+    cursor: pointer;
   `,
 };

@@ -7,11 +7,19 @@ import ShopForm from '@components/ShopForm';
 function ShopDetail() {
   useRefreshLogin();
   return (
-    <>
+    <Styled.Root>
       <ShopForm />
-    </>
+    </Styled.Root>
   );
 }
 
 export default ShopDetail;
-const Styled = {};
+const Styled = {
+  Root: styled.section`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+  `,
+};

@@ -1,7 +1,8 @@
 import Button from '@components/common/Button';
 import Input from '@components/common/Input';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface shopFormProps {
   shopName?: string;
@@ -21,9 +22,14 @@ interface shopFormProps {
   image?: Array<string>;
 }
 
+interface ImageType {
+  file?: File | null;
+  preview: string | null;
+}
+
 function ShopForm(props: shopFormProps) {
   const {
-    shopName = '룰루랄라',
+    shopName,
     subway,
     roadAddress,
     landAddress,
@@ -37,20 +43,79 @@ function ShopForm(props: shopFormProps) {
     area,
     category,
     theme,
-    image = [
-      'https://sodam.me/_next/image?url=https%3A%2F%2Fsearch.pstatic.net%2Fcommon%2F%3FautoRotate%3Dtrue%26quality%3D95%26type%3Dw750%26src%3Dhttps%253A%252F%252Fldb-phinf.pstatic.net%252F20211030_296%252F1635601868759oh4iC_JPEG%252FHSoh5UhZWDbFWrhxNSyfbG4-.jpeg.jpg&w=3840&q=75',
-      'https://sodam.me/_next/image?url=https%3A%2F%2Fsearch.pstatic.net%2Fcommon%2F%3FautoRotate%3Dtrue%26quality%3D95%26type%3Dw750%26src%3Dhttps%253A%252F%252Fldb-phinf.pstatic.net%252F20211030_51%252F16356018850800aMQ1_JPEG%252F_RBwbFK7ubsvv-OeyYk8PS0d.jpeg.jpg&w=3840&q=75',
-    ],
+    image = [],
   } = props;
-  const [imageList, setImageList] = useState<string[] | undefined>(image);
+  const [imageList, setImageList] = useState<Array<ImageType | string>>(image);
+
+  const convertURLtoFile = async (url: string) => {
+    const response = await fetch(url);
+    const data = await response.blob();
+    const ext = url.split('.').pop(); // url 구조에 맞게 수정할 것
+    const filename = url.split('/').pop(); // url 구조에 맞게 수정할 것
+    const metadata = { type: `image/${ext}` };
+    console.log('>>>url to filedata', new File([data], filename!, metadata));
+    return new File([data], filename!, metadata);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files === null) return;
+
+    const MAX_NUM = 4;
+
+    const tempImageList: Array<string | ImageType> = imageList ? [...imageList] : [];
+    // 받은 파일 리스트
+    const dataList = Array.from(e.target.files);
+
+    if (imageList.length + dataList.length > MAX_NUM) {
+      const restSize = MAX_NUM - imageList.length;
+      dataList.splice(restSize);
+    }
+
+    const promiseList: Array<Promise<ImageType>> = dataList.map(
+      async (data) =>
+        new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(data);
+          reader.onloadend = () => {
+            if (reader.result instanceof ArrayBuffer) {
+              resolve({
+                file: null,
+                preview: null,
+              });
+
+              return;
+            }
+            resolve({ file: data, preview: reader.result });
+          };
+        }),
+    );
+
+    const resolvedList = await Promise.all(promiseList);
+    console.log('>>resolvedList', resolvedList);
+    resolvedList.forEach((resolvedData: ImageType) => {
+      tempImageList.push(resolvedData);
+    });
+
+    e.target.value = '';
+    setImageList(tempImageList);
+  };
 
   const handleImageClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     console.log(e.currentTarget.id);
-    const index = Number(e.currentTarget.id);
-    const copyImageList = imageList && [...imageList];
-    const updatedImageList = copyImageList?.splice(index, index - 1);
-    setImageList(updatedImageList);
+    const idx = Number(e.currentTarget.id);
+    // const copyImageList = imageList && [...imageList];
+    // const updatedImageList = copyImageList?.splice(index, index - 1);
+    // setImageList(updatedImageList);
+    imageList && setImageList(imageList?.filter((_, index) => idx !== index));
   };
+
+  // useEffect(() => {
+  //   console.log('>>imageList', imageList);
+  //   convertURLtoFile(
+  //     'https://sodam.me/_next/image?url=https%3A%2F%2Fsearch.pstatic.net%2Fcommon%2F%3FautoRotate%3Dtrue%26quality%3D95%26type%3Dw750%26src%3Dhttps%253A%252F%252Fldb-phinf.pstatic.net%252F20211030_51%252F16356018850800aMQ1_JPEG%252F_RBwbFK7ubsvv-OeyYk8PS0d.jpeg.jpg&w=3840&q=75',
+  //   );
+  // }, [imageList]);
+
   return (
     <Styled.Root>
       <Styled.InputSet>
@@ -155,14 +220,30 @@ function ShopForm(props: shopFormProps) {
       </Styled.InputSet>
       <Styled.InputSet>
         <label htmlFor="image">사진</label>
-        <input type="file" />
+        {/* <input type="file" accept="image/*" multiple onChange={handleImageUpload} /> */}
+        <Styled.FileInput
+          accept="image/*"
+          id="previewImage"
+          type="file"
+          multiple
+          onChange={handleImageUpload}
+        />
+        <Styled.Label htmlFor="previewImage">Select</Styled.Label>
       </Styled.InputSet>
       <Styled.imageWrapperList>
         {imageList?.map((item, idx) => {
           return (
             <Styled.ImageWrapper key={idx}>
-              <Styled.Image src={item} alt="소품샵 이미지" id={idx.toString()} />
-              <Styled.XButton onClick={handleImageClick}>𝖷</Styled.XButton>
+              <LazyLoadImage
+                src={item?.preview ? item?.preview : item}
+                alt="소품샵 이미지"
+                width={180}
+                height={130}
+                effect="blur"
+              />
+              <Styled.XButton id={idx.toString()} onClick={handleImageClick}>
+                𝖷
+              </Styled.XButton>
             </Styled.ImageWrapper>
           );
         })}
@@ -181,6 +262,11 @@ const Styled = {
     & > button {
       margin-top: 18px;
     }
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    height: 90vh;
+    justify-content: space-around;
   `,
   InputSet: styled.div`
     display: flex;
@@ -200,6 +286,7 @@ const Styled = {
   imageWrapperList: styled.div`
     display: flex;
     margin-left: 75px;
+    margin-top: 12px;
   `,
   ImageWrapper: styled.div`
     position: relative;
@@ -221,5 +308,24 @@ const Styled = {
     background: #989797;
     color: white;
     cursor: pointer;
+  `,
+  FileInput: styled.input`
+    display: none;
+    visibility: hidden;
+    border-radius: 8px;
+    width: 50px;
+    height: 30px;
+  `,
+  Label: styled.label`
+    width: 90px;
+    height: 30px;
+    border-radius: 8px;
+    background-color: #abacfe;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   `,
 };

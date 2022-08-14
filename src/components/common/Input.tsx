@@ -37,7 +37,7 @@ const Styled = {
     outline: 0;
     border-radius: 8px;
     width: ${({ width }) => width};
-    height: 20px;
+    height: 25px;
     border: 1px solid #d1d1d1;
     padding: 8px 10px;
     color: #363636;
