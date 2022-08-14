@@ -1,31 +1,12 @@
 import Button from '@components/common/Button';
 import Input from '@components/common/Input';
-import React, { useEffect, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-
-interface shopFormProps {
-  shopName?: string;
-  subway?: string;
-  roadAddress?: string;
-  landAddress?: string;
-  time?: string;
-  close?: string;
-  phone?: string;
-  homepage?: string;
-  instagram?: string;
-  blog?: string;
-  store?: string;
-  area?: string;
-  category?: Array<string>;
-  theme?: Array<string>;
-  image?: Array<string>;
-}
-
-interface ImageType {
-  file?: File | null;
-  preview: string | null;
-}
+import usePostShop from '@hooks/usePostShop';
+import { ImageType, shopFormProps } from '@types';
+import Router from 'src/core/router';
+import { useNavigate } from 'react-router-dom';
 
 function ShopForm(props: shopFormProps) {
   const {
@@ -46,6 +27,24 @@ function ShopForm(props: shopFormProps) {
     image = [],
   } = props;
   const [imageList, setImageList] = useState<Array<ImageType | string>>(image);
+  const shopNameInput = createRef<HTMLInputElement>();
+  const subwayInput = createRef<HTMLInputElement>();
+  const roadAddressInput = createRef<HTMLInputElement>();
+  const landAddressInput = createRef<HTMLInputElement>();
+  const timeInput = createRef<HTMLInputElement>();
+  const closeInput = createRef<HTMLInputElement>();
+  const phoneInput = createRef<HTMLInputElement>();
+  const homepageInput = createRef<HTMLInputElement>();
+  const instagramInput = createRef<HTMLInputElement>();
+  const blogInput = createRef<HTMLInputElement>();
+  const storeInput = createRef<HTMLInputElement>();
+  const areaInput = createRef<HTMLInputElement>();
+  const categoryInput = createRef<HTMLInputElement>();
+  const themeInput = createRef<HTMLInputElement>();
+  const imageInput = createRef<HTMLInputElement>();
+  const [postData, setPostData] = useState<Array<any>>([]);
+  const { mutate } = usePostShop(postData);
+  const navigate = useNavigate();
 
   const convertURLtoFile = async (url: string) => {
     const response = await fetch(url);
@@ -116,8 +115,83 @@ function ShopForm(props: shopFormProps) {
   //   );
   // }, [imageList]);
 
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    console.log('>>shopNameInput.', shopNameInput.current?.value);
+    console.log('>>subwayInput.', subwayInput.current?.value);
+    console.log('>>roadAddressInput.', roadAddressInput.current?.value);
+    console.log('>>landAddressInput.', landAddressInput.current?.value);
+    console.log('>>timeInput.', timeInput.current?.value);
+    console.log('>>closeInput.', closeInput.current?.value);
+    console.log('>>phoneInput.', phoneInput.current?.value);
+    console.log('>>homepageInput.', homepageInput.current?.value);
+    console.log('>>instagramInput.', instagramInput.current?.value);
+    console.log('>>blogInput.', blogInput.current?.value);
+    console.log('>>storeInput.', storeInput.current?.value);
+    console.log('>>areaInput.', areaInput.current?.value);
+    console.log('>>categoryInput.', categoryInput.current?.value);
+    console.log('>>themeInput.', themeInput.current?.value);
+    console.log('>>imageList.', imageList);
+    // const formData = new FormData();
+    // formData.append('file');
+    setPostData([
+      {
+        image: imageList,
+      },
+      {
+        shopName: shopNameInput.current?.value,
+      },
+      {
+        subway: subwayInput.current?.value,
+      },
+      {
+        roadAddress: roadAddressInput.current?.value,
+      },
+      {
+        landAddress: landAddressInput.current?.value,
+      },
+      {
+        time: timeInput.current?.value,
+      },
+      {
+        close: closeInput.current?.value,
+      },
+      {
+        phone: phoneInput.current?.value,
+      },
+      {
+        homepage: homepageInput.current?.value,
+      },
+      {
+        instagram: instagramInput.current?.value,
+      },
+      {
+        blog: blogInput.current?.value,
+      },
+      {
+        storeInput: storeInput.current?.value,
+      },
+      {
+        areaInput: areaInput.current?.value,
+      },
+      {
+        categoryInput: categoryInput.current?.value.replace(' ', '').split(','),
+      },
+      {
+        themeInput: themeInput.current?.value.replace(' ', '').split(','),
+      },
+    ]);
+    mutate();
+    // navigate('/shop');
+  };
+
+  useEffect(() => {
+    console.log('postData', postData);
+  }, [postData]);
   return (
-    <Styled.Root>
+    <Styled.Root onSubmit={handleSubmit}>
       <Styled.InputSet>
         <label htmlFor="shopName">소품샵 명</label>
         <Input
@@ -125,15 +199,28 @@ function ShopForm(props: shopFormProps) {
           width="486px"
           placeholder="추가할 소품샵 명을 입력하세요"
           defaultValue={shopName}
+          ref={shopNameInput}
         />
       </Styled.InputSet>
       <Styled.InputSet>
         <label htmlFor="category">소품샵 종류</label>
-        <Input id="category" width="486px" placeholder="인테리어소품" defaultValue={category} />
+        <Input
+          id="category"
+          width="486px"
+          placeholder="인테리어소품"
+          defaultValue={category}
+          ref={categoryInput}
+        />
       </Styled.InputSet>
       <Styled.InputSet>
         <label htmlFor="theme">분위기</label>
-        <Input id="theme" width="486px" placeholder="아기자기" defaultValue={theme} />
+        <Input
+          id="theme"
+          width="486px"
+          placeholder="아기자기"
+          defaultValue={theme}
+          ref={themeInput}
+        />
       </Styled.InputSet>
       <Styled.RowInputSet>
         <Styled.InputSet>
@@ -143,6 +230,7 @@ function ShopForm(props: shopFormProps) {
             width="486px"
             placeholder="도로명 주소"
             defaultValue={roadAddress}
+            ref={roadAddressInput}
           />
         </Styled.InputSet>
         <Styled.InputSet>
@@ -152,33 +240,58 @@ function ShopForm(props: shopFormProps) {
             width="486px"
             placeholder="지번 주소"
             defaultValue={landAddress}
+            ref={landAddressInput}
           />
         </Styled.InputSet>
       </Styled.RowInputSet>
       <Styled.RowInputSet>
         <Styled.InputSet>
           <label htmlFor="subway">가까운 역</label>
-          <Input id="subway" width="486px" placeholder="강동구청역" defaultValue={subway} />
+          <Input
+            id="subway"
+            width="486px"
+            placeholder="강동구청역"
+            defaultValue={subway}
+            ref={subwayInput}
+          />
         </Styled.InputSet>
         <Styled.InputSet>
           <label htmlFor="area">지역(구)</label>
-          <Input id="area" width="486px" placeholder="송파구" defaultValue={area} />
+          <Input id="area" width="486px" placeholder="송파구" defaultValue={area} ref={areaInput} />
         </Styled.InputSet>
       </Styled.RowInputSet>
       <Styled.RowInputSet>
         <Styled.InputSet>
           <label htmlFor="phone">전화번호</label>
-          <Input id="phone" width="486px" placeholder="010-0000-0000" defaultValue={phone} />
+          <Input
+            id="phone"
+            width="486px"
+            placeholder="010-0000-0000"
+            defaultValue={phone}
+            ref={phoneInput}
+          />
         </Styled.InputSet>
         <Styled.InputSet>
           <label htmlFor="time">영업시간</label>
-          <Input id="time" width="486px" placeholder="11:00~16:00" defaultValue={time} />
+          <Input
+            id="time"
+            width="486px"
+            placeholder="11:00~16:00"
+            defaultValue={time}
+            ref={timeInput}
+          />
         </Styled.InputSet>
       </Styled.RowInputSet>
       <Styled.RowInputSet>
         <Styled.InputSet>
           <label htmlFor="close">휴무일</label>
-          <Input id="close" width="486px" placeholder="일요일" defaultValue={close} />
+          <Input
+            id="close"
+            width="486px"
+            placeholder="일요일"
+            defaultValue={close}
+            ref={closeInput}
+          />
         </Styled.InputSet>
         <Styled.InputSet>
           <label htmlFor="homepage">홈페이지</label>
@@ -187,6 +300,7 @@ function ShopForm(props: shopFormProps) {
             width="486px"
             placeholder="https://sodam.me"
             defaultValue={homepage}
+            ref={homepageInput}
           />
         </Styled.InputSet>
       </Styled.RowInputSet>
@@ -198,11 +312,18 @@ function ShopForm(props: shopFormProps) {
             width="486px"
             placeholder="https://www.instagram.com/sodam_official_/"
             defaultValue={instagram}
+            ref={instagramInput}
           />
         </Styled.InputSet>
         <Styled.InputSet>
           <label htmlFor="blog">블로그</label>
-          <Input id="blog" width="486px" placeholder="https://sodam.me" defaultValue={blog} />
+          <Input
+            id="blog"
+            width="486px"
+            placeholder="https://sodam.me"
+            defaultValue={blog}
+            ref={blogInput}
+          />
         </Styled.InputSet>
       </Styled.RowInputSet>
       <Styled.InputSet>
@@ -216,6 +337,7 @@ function ShopForm(props: shopFormProps) {
           width="486px"
           placeholder="네이버 or 스토어팜 주소를 입력하세요"
           defaultValue={store}
+          ref={storeInput}
         />
       </Styled.InputSet>
       <Styled.InputSet>
@@ -227,6 +349,7 @@ function ShopForm(props: shopFormProps) {
           type="file"
           multiple
           onChange={handleImageUpload}
+          ref={imageInput}
         />
         <Styled.Label htmlFor="previewImage">Select</Styled.Label>
       </Styled.InputSet>
@@ -248,7 +371,7 @@ function ShopForm(props: shopFormProps) {
           );
         })}
       </Styled.imageWrapperList>
-      <Button width="100%" height="45px">
+      <Button width="100%" height="45px" onClick={handleSubmit}>
         소품샵 등록 완료
       </Button>
     </Styled.Root>
@@ -258,7 +381,7 @@ function ShopForm(props: shopFormProps) {
 export default ShopForm;
 
 const Styled = {
-  Root: styled.section`
+  Root: styled.form`
     & > button {
       margin-top: 18px;
     }

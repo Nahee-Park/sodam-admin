@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AbstractApi, CommonResponse } from './AbstractApi';
-import { getAllShopProps } from '@types';
+import { getAllShopProps, shopFormProps } from '@types';
 
 const ADMIN_URL = 'https://server.sodam.me/admin/shop';
 
@@ -50,6 +50,32 @@ export class ShopDataApi extends AbstractApi {
         accesstoken,
       },
     });
+    return response.data;
+  }
+
+  public static async postShopData(shopDataList: Array<any>): Promise<CommonResponse> {
+    const accesstoken = window.localStorage.getItem('accesstoken') as string;
+    // const URL = ADMIN_URL + this.buildPath('newshop');
+    const URL = 'http://localhost:8080/admin/shop/newshop';
+    const formData = new FormData();
+    Object.entries(shopDataList).forEach(([key, val]) => {
+      if (Array.isArray(val)) {
+        if (val.every((v) => v instanceof File)) {
+          console.log('>>>>>>>val', val);
+          val.forEach((file) => formData.append('image', file));
+        } else {
+          formData.append(key, JSON.stringify(val));
+        }
+      } else formData.append(key, val);
+    });
+    console.log('>>formData', formData);
+    const response = await axios.post<ShopAnalyzeDataResponse>(URL, {
+      headers: {
+        accesstoken,
+      },
+      body: formData,
+    });
+    console.log('>>response', response);
     return response.data;
   }
 }

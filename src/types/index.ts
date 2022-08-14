@@ -21,3 +21,26 @@ export interface getAllReviewProps {
   page: number;
   limit: number;
 }
+
+export interface ImageType {
+  file?: File | null;
+  preview: string | null;
+}
+
+export interface shopFormProps {
+  shopName?: string;
+  subway?: string;
+  roadAddress?: string;
+  landAddress?: string;
+  time?: string;
+  close?: string;
+  phone?: string;
+  homepage?: string;
+  instagram?: string;
+  blog?: string;
+  store?: string;
+  area?: string;
+  category?: Array<string>;
+  theme?: Array<string>;
+  image?: Array<string | ImageType>;
+}
