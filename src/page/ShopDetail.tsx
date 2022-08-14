@@ -3,11 +3,12 @@ import React from 'react';
 import tw from 'twin.macro';
 import styled from 'styled-components';
 import useRefreshLogin from '@hooks/useRefreshLogin';
+import ShopForm from '@components/ShopForm';
 function ShopDetail() {
   useRefreshLogin();
   return (
     <>
-      <div>ShopDetail</div>
+      <ShopForm />
     </>
   );
 }

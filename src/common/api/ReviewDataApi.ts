@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AbstractApi, CommonResponse } from './AbstractApi';
-import { getAllShopProps } from '@types';
+import { getAllReviewProps, getAllShopProps } from '@types';
 
 const ADMIN_URL = 'https://server.sodam.me/admin/review';
 
@@ -20,7 +20,7 @@ interface AllReviewListResponse extends CommonResponse {
 }
 
 export class ReviewDataApi extends AbstractApi {
-  public static async getAllReview({ sort, page, limit }: getAllShopProps) {
+  public static async getAllReview({ sort, page, limit }: getAllReviewProps) {
     const accesstoken = window.localStorage.getItem('accesstoken') as string;
     const URL = ADMIN_URL + this.buildPath('all') + this.buildQuery({ sort, page, limit });
     const response = await axios.get<AllReviewListResponse>(URL, {

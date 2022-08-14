@@ -20,13 +20,15 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
-
+import useAllReview from '@hooks/useAllReview';
+import { allReviewQuery } from '@states';
+import { useRecoilState } from 'recoil';
 interface Data {
-  calories: number;
-  carbs: number;
-  fat: number;
-  name: string;
-  protein: number;
+  writer: string;
+  content: string;
+  shopName: string;
+  link: string;
+  likeCount: number;
 }
 
 function createData(
@@ -105,32 +107,32 @@ interface HeadCell {
 
 const headCells: readonly HeadCell[] = [
   {
-    id: 'name',
+    id: 'writer',
     numeric: false,
     disablePadding: true,
-    label: 'Dessert (100g serving)',
+    label: '작성자',
   },
   {
-    id: 'calories',
+    id: 'content',
+    numeric: false,
+    disablePadding: false,
+    label: '내용',
+  },
+  {
+    id: 'shopName',
+    numeric: false,
+    disablePadding: false,
+    label: '소품샵 이름',
+  },
+  {
+    id: 'likeCount',
     numeric: true,
     disablePadding: false,
-    label: 'Calories',
+    label: '좋아요 수',
   },
   {
-    id: 'fat',
-    numeric: true,
-    disablePadding: false,
-    label: 'Fat (g)',
-  },
-  {
-    id: 'carbs',
-    numeric: true,
-    disablePadding: false,
-    label: 'Carbs (g)',
-  },
-  {
-    id: 'protein',
-    numeric: true,
+    id: 'link',
+    numeric: false,
     disablePadding: false,
     label: 'Protein (g)',
   },
@@ -242,6 +244,17 @@ export default function CheckTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  const [paramData, setParamData] = useRecoilState(allReviewQuery);
+  const allReviewData = useAllReview({
+    sort: paramData?.sort,
+    page: paramData?.page,
+    limit: paramData?.limit,
+  });
+  React.useEffect(() => {
+    console.log('>>paramData', paramData);
+    console.log('>>allReviewData', allReviewData);
+  }, [paramData]);
 
   const handleRequestSort = (event: React.MouseEvent<unknown>, property: keyof Data) => {
     const isAsc = orderBy === property && order === 'asc';

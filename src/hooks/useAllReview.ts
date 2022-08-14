@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import { ReviewDataApi } from '@api/ReviewDataApi';
-import { getAllShopProps } from '@types';
+import { getAllReviewProps } from '@types';
 
-const useAllShop = ({ sort, page, limit }: getAllShopProps) => {
+const useAllReview = ({ sort, page, limit }: getAllReviewProps) => {
   return useQuery(
     ['getAllShop', { sort, page, limit }],
     () => ReviewDataApi.getAllReview({ sort, page, limit }),
@@ -13,4 +13,4 @@ const useAllShop = ({ sort, page, limit }: getAllShopProps) => {
   );
 };
 
-export default useAllShop;
+export default useAllReview;

@@ -15,3 +15,9 @@ export type categoryType =
   | '패션소품';
 
 export type sortType = 'recent' | 'alphabet';
+
+export interface getAllReviewProps {
+  sort: string;
+  page: number;
+  limit: number;
+}

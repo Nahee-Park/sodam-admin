@@ -19,6 +19,15 @@ export const allShopQuery = atom({
   },
 });
 
+export const allReviewQuery = atom({
+  key: 'allReivewQuery',
+  default: {
+    sort: 'popular',
+    page: 1,
+    limit: 20,
+  },
+});
+
 export const userInfo = atom({
   key: 'userInfo',
   default: {
