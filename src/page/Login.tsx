@@ -21,19 +21,25 @@ function Login() {
   }, []);
 
   const postLogin = async () => {
-    const response = await LoginApi.postLogin({
-      email: loginInput.current?.value as string,
-      password: passwordInput.current?.value as string,
-    });
-    console.log(response);
-    if (response?.data?.accesstoken) {
-      setUserInformation({
+    try {
+      const response = await LoginApi.postLogin({
         email: loginInput.current?.value as string,
         password: passwordInput.current?.value as string,
       });
-      window.localStorage.setItem('accesstoken', response.data.accesstoken);
+      console.log(response);
+      if (response?.data?.accesstoken) {
+        setUserInformation({
+          email: loginInput.current?.value as string,
+          password: passwordInput.current?.value as string,
+        });
+        window.localStorage.setItem('accesstoken', response.data.accesstoken);
+      }
+      return response?.data?.accesstoken;
+    } catch (e) {
+      console.log(e);
+      window.localStorage.removeItem('accesstoken');
+      return false;
     }
-    return response?.data?.accesstoken;
   };
 
   const handleSubmit = async (
@@ -46,6 +52,8 @@ function Login() {
     console.log('>>data', data);
     if (data) {
       navigate('/');
+    } else {
+      navigate('/login');
     }
   };
 

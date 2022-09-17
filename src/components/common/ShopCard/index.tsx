@@ -9,11 +9,15 @@ interface ShopCardProps {
   shopName: string;
   image: string;
   category: string;
+  shopId: string;
 }
 
-function ShopCard({ shopName, image, category }: ShopCardProps) {
+function ShopCard({ shopName, image, category, shopId }: ShopCardProps) {
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log('클릭', e.currentTarget.id);
+  };
   return (
-    <CardActionArea>
+    <CardActionArea onClick={handleClick} id={shopId}>
       <Card
         sx={{
           width: '100%',
@@ -27,7 +31,7 @@ function ShopCard({ shopName, image, category }: ShopCardProps) {
           <Typography gutterBottom variant="body1" component="div">
             {shopName}
           </Typography>
-          <Typography variant="body3" color="text.secondary">
+          <Typography variant="body2" color="text.secondary">
             {category}
           </Typography>
         </CardContent>

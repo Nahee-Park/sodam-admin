@@ -56,25 +56,33 @@ export class ShopDataApi extends AbstractApi {
   public static async postShopData(shopDataList: Array<any>): Promise<CommonResponse> {
     const accesstoken = window.localStorage.getItem('accesstoken') as string;
     // const URL = ADMIN_URL + this.buildPath('newshop');
+    // http://localhost:8080/admin/shop/newshop
     const URL = 'http://localhost:8080/admin/shop/newshop';
     const formData = new FormData();
-    Object.entries(shopDataList).forEach(([key, val]) => {
-      if (Array.isArray(val)) {
-        if (val.every((v) => v instanceof File)) {
-          console.log('>>>>>>>val', val);
-          val.forEach((file) => formData.append('image', file));
-        } else {
-          formData.append(key, JSON.stringify(val));
-        }
-      } else formData.append(key, val);
-    });
-    console.log('>>formData', formData);
-    const response = await axios.post<ShopAnalyzeDataResponse>(URL, {
-      headers: {
-        accesstoken,
-      },
-      body: formData,
-    });
+
+    shopDataList &&
+      Object.entries(shopDataList).forEach(([key, val]) => {
+        console.log('>>>>>>>key', key);
+        console.log('>>>>>>>val', val);
+        console.log('----------------');
+        if (Array.isArray(val)) {
+          if (val.every((v) => v instanceof File)) {
+            console.log('>>>>>>>val', val);
+            val.forEach((file) => formData.append('image', file));
+          } else {
+            formData.append(key, JSON.stringify(val));
+          }
+        } else formData.append(key, val.toString());
+      });
+
+    const response =
+      shopDataList &&
+      (await axios.post<ShopAnalyzeDataResponse>(URL, formData, {
+        headers: {
+          accesstoken,
+          'content-type': 'multipart/form-data',
+        },
+      }));
     console.log('>>response', response);
     return response.data;
   }

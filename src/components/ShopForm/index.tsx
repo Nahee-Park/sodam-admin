@@ -42,7 +42,7 @@ function ShopForm(props: shopFormProps) {
   const categoryInput = createRef<HTMLInputElement>();
   const themeInput = createRef<HTMLInputElement>();
   const imageInput = createRef<HTMLInputElement>();
-  const [postData, setPostData] = useState<Array<any>>([]);
+  const [postData, setPostData] = useState<any>();
   const { mutate } = usePostShop(postData);
   const navigate = useNavigate();
 
@@ -134,55 +134,26 @@ function ShopForm(props: shopFormProps) {
     console.log('>>categoryInput.', categoryInput.current?.value);
     console.log('>>themeInput.', themeInput.current?.value);
     console.log('>>imageList.', imageList);
+    const imageFileList = imageList?.map((item) => item.file);
     // const formData = new FormData();
     // formData.append('file');
-    setPostData([
-      {
-        image: imageList,
-      },
-      {
-        shopName: shopNameInput.current?.value,
-      },
-      {
-        subway: subwayInput.current?.value,
-      },
-      {
-        roadAddress: roadAddressInput.current?.value,
-      },
-      {
-        landAddress: landAddressInput.current?.value,
-      },
-      {
-        time: timeInput.current?.value,
-      },
-      {
-        close: closeInput.current?.value,
-      },
-      {
-        phone: phoneInput.current?.value,
-      },
-      {
-        homepage: homepageInput.current?.value,
-      },
-      {
-        instagram: instagramInput.current?.value,
-      },
-      {
-        blog: blogInput.current?.value,
-      },
-      {
-        storeInput: storeInput.current?.value,
-      },
-      {
-        areaInput: areaInput.current?.value,
-      },
-      {
-        categoryInput: categoryInput.current?.value.replace(' ', '').split(','),
-      },
-      {
-        themeInput: themeInput.current?.value.replace(' ', '').split(','),
-      },
-    ]);
+    setPostData({
+      image: imageFileList,
+      shopName: shopNameInput.current?.value,
+      subway: subwayInput.current?.value,
+      roadAddress: roadAddressInput.current?.value,
+      landAddress: landAddressInput.current?.value,
+      time: timeInput.current?.value,
+      close: closeInput.current?.value,
+      phone: phoneInput.current?.value,
+      homepage: homepageInput.current?.value,
+      instagram: instagramInput.current?.value,
+      blog: blogInput.current?.value,
+      store: storeInput.current?.value,
+      area: areaInput.current?.value,
+      category: categoryInput.current?.value.replace(' ', '').split(','),
+      theme: themeInput.current?.value.replace(' ', '').split(','),
+    });
     mutate();
     // navigate('/shop');
   };
@@ -190,6 +161,11 @@ function ShopForm(props: shopFormProps) {
   useEffect(() => {
     console.log('postData', postData);
   }, [postData]);
+
+  useEffect(() => {
+    console.log('>https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');
+    convertURLtoFile('https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg');
+  }, []);
   return (
     <Styled.Root onSubmit={handleSubmit}>
       <Styled.InputSet>

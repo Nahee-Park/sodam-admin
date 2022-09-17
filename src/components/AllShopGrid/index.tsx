@@ -18,6 +18,7 @@ function AllShopGrid() {
       {allShopData?.data?.map((item) => {
         return (
           <ShopCard
+            key={item.shopId}
             shopName={item?.shopName}
             image={
               item?.image && item?.image.length !== 0
@@ -27,6 +28,7 @@ function AllShopGrid() {
             category={
               item?.category.length !== 0 ? item?.category.toString() : '카테고리 지정 안됨'
             }
+            shopId={item.shopId}
             // category={item?.category[0].toString()}
           />
         );

@@ -23,6 +23,7 @@ const useRefreshLogin = () => {
       console.log('리프레시됨!', response?.data?.accesstoken);
       return response?.data?.accesstoken;
     } catch {
+      window.localStorage.removeItem('accesstoken');
       navigate('/login');
     }
   };

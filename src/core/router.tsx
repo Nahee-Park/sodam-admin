@@ -3,9 +3,10 @@ import Login from '@page/Login';
 import ManageReview from '@page/ManageReview';
 import NotFound from '@page/NotFound';
 import ShopDetail from '@page/ShopDetail';
+import ShopEdit from '@page/ShopEdit';
 import ShopList from '@page/ShopList';
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
 function Router() {
@@ -25,7 +26,7 @@ function Router() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/shop" element={<ShopList />} />
           <Route path="/shop/new" element={<ShopDetail />} />
-          <Route path="/shop/edit" element={<ShopDetail />} />
+          <Route path="/shop/edit/*" element={<ShopEdit />} />
           <Route path="/review" element={<ManageReview />} />
           <Route path="/*" element={<NotFound />} />
         </Routes>
